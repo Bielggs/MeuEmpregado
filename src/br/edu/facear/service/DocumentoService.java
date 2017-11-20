@@ -18,7 +18,7 @@ public class DocumentoService {
 	public List<Documento> Pesquisar(int id) {
 		return empregadodao.Pesquisarfoto(id);
 	}
-	public List<TipoDocumento> SearchTipodocumento(){
+	public List<TipoDocumento> PesquisarALL(){
 		return tipodao.PesquisarALL();
 	}
 }

@@ -54,7 +54,7 @@ public class DocumentoMB implements Serializable {
 		tipodoc = new TipoDocumento(0, "");
 		documento = new Documento(0, ep.getId(), tipodoc, caminho);
 
-		this.listTipodoc = service.SearchTipodocumento();
+		this.listTipodoc = service.PesquisarALL();
 		this.listadocuemto = service.Pesquisar(ep.getId());
 	}
 

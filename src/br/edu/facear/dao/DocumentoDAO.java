@@ -12,11 +12,9 @@ import br.edu.facear.model.TipoDocumento;
 
 public class DocumentoDAO extends GenericDAO implements CrudeDAO<Documento> {
 
-	private String SQL_INSERT = "insert into empregadodocumento (iddocumento,idusuario,idtipo,dretorio) values (?,?,?,?);";
 	private PreparedStatement ps = null;
 	private ResultSet rs;
-	List<TipoDocumento> tipo;
-	private TipoDocumentoDAO tipodao;
+
 
 	@Override
 	public void Inserir(Documento documento) {
@@ -24,7 +22,7 @@ public class DocumentoDAO extends GenericDAO implements CrudeDAO<Documento> {
 		try {
 			openConnection();
 			
-			ps = connect.prepareStatement(SQL_INSERT);
+			ps = connect.prepareStatement("insert into empregadodocumento (iddocumento,idusuario,idtipo,dretorio) values (?,?,?,?);");
 			
 			ps.setInt(1, documento.getIddocumento());
 			
