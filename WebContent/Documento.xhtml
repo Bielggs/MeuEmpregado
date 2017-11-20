@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Documentos</title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<style>
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+</style>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+</h:head>
+<h:body>
+
+
+	<ui:include src="inc/header.xhtml" />
+
+
+	<!-- Conteúdo principal da página -->
+	<main class="container">
+	<h1>Lista de Documentos</h1>
+	<hr />
+	<f:view>
+
+		<!-- inicio upload de imagem -->
+		<h:form id="form" styleClass="form-inline"
+			enctype="multipart/form-data">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<!-- inicio combobox de tipo documento -->
+			<div class="form-group">
+				<h:outputLabel value="Tipo Documento: " />
+			</div>
+			<div class="form-group">
+				<h:selectOneMenu value="#{documentoEmpregadoMB.tipodoc.idtipo}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="" itemValue="0" />
+					<f:selectItems value="#{documentoEmpregadoMB.listTipodoc}" var="a"
+						itemValue="#{a.idtipo}" itemLabel="#{a.descricao}" />
+				</h:selectOneMenu>
+			</div>
+			<br />
+			<br />
+			<!-- termino combobox de tipo documento -->
+
+			<div class="form-group">
+				<h:outputLabel for="file" value="Diretorio:" />
+			</div>
+
+			<div class="form-group">
+				<h:inputFile id="file" styleClass="btn btn-default"
+					value="#{documentoEmpregadoMB.image}"
+					validator="#{documentoEmpregadoMB.Validate}" />
+				<h:message for="file" />
+			</div>
+			<br />
+			<br />
+
+			<p:panel>
+				<img src="#{documentoEmpregadoMB.arraybytes64}" width="760"
+					height="400" />
+			</p:panel>
+			<br />
+
+
+			<div class="form-group">
+				<h:commandButton styleClass="btn btn-primary" value="Carregar"
+					action="#{documentoEmpregadoMB.GeneretImage}" />
+			</div>
+
+			<div class="form-group">
+				<h:commandButton styleClass="btn btn-default" value="Cancelar"
+					action="#{documentoEmpregadoMB.CancelAction}" />
+			</div>
+			<div class="form-group">
+				<h:commandButton styleClass="btn btn-default" value="Salvar"
+					action="#{documentoEmpregadoMB.SalvarAction}" />
+			</div>
+		</h:form>
+		<br />
+
+
+
+		<!-- termino upload de imagem -->
+
+
+		<h:form styleClass="form-inline">
+			<div class="form-group">
+				<h:outputLabel value="Tipo Documento: " />
+			</div>
+			<div class="form-group">
+				<h:selectOneMenu value="#{documentoEmpregadoMB.idtipo}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="" itemValue="0" />
+					<f:selectItems value="#{documentoEmpregadoMB.listTipodoc}" var="a"
+						itemValue="#{a.idtipo}" itemLabel="#{a.descricao}" />
+					<p:ajax listener="#{DocumentoEmpregadoMB.pesquisa}"
+						update="tabeladoc" process="@all" />
+				</h:selectOneMenu>
+			</div>
+			<br />
+			<br />
+			<p:panel id="tabeladoc">
+				<!-- inicio tabela de documento -->
+				<h:dataTable styleClass="table table-striped" var="doc"
+					value="#{documentoEmpregadoMB.listadocuemto}">
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="Id" />
+						</f:facet>
+						<h:outputText value="#{doc.iddocumento}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="Tipo" />
+						</f:facet>
+						<h:outputText value="#{doc.tipodoc.descricao}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="Diretorio" />
+						</f:facet>
+						<h:outputText value="#{doc.diretorio}" />
+					</h:column>
+					<h:column>
+						<h:commandButton
+							action="#{documentoEmpregadoMB.GeneretImageTable(doc.diretorio)}"
+							styleClass="btn btn-sm btn-success" value="View" />
+					</h:column>
+					<h:column>
+						<h:commandButton action="#{DocumentoEmpregadoMB.DeleteImage(doc)}"
+							styleClass="btn btn-primary" value="Delete" />
+					</h:column>
+				</h:dataTable>
+				<!-- termino tabela de documento -->
+			</p:panel>
+		</h:form>
+		<br />
+		<br />
+		<br />
+
+
+
+		<table>
+			<tr>
+				<td align="left" width="567">
+					<div class="form-group">
+						<h:commandButton styleClass="btn btn-default" value="Voltar" />
+					</div>
+				</td>
+
+				<td align="right" width="567">
+					<div class="form-group">
+						<h:commandButton styleClass="btn btn-default" value="Proximo" />
+					</div>
+				</td>
+			</tr>
+
+
+		</table>
+
+
+
+	</f:view> </main>
+	<ui:include src="inc/footer.xhtml" />
+</h:body>
+</html>

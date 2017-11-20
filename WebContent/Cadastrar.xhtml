@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title> Documentos </title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<style>
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+.form-controll {
+  display: block;
+  width: 20%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+</style>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+</h:head>
+<h:body>
+
+
+	<ui:include src="inc/header.xhtml" />
+	
+
+	<!-- Conteúdo principal da página -->
+	<main class="container">
+	<h2>Cadastro de Empregado</h2>
+		<hr />
+	<f:view>
+		<h:form>
+			<div class="form-group">
+			<h:outputLabel  value="Nome: "/>
+				<h:inputText  styleClass="form-controll" value="#{empregadoMB.empregado.nome}"/>
+				<h:outputLabel value="Senha: "/>
+				<h:inputSecret  styleClass="form-controll" value="#{empregadoMB.empregado.email}"/>
+			</div>
+			<div class="col-md-12">
+				<h:commandLink styleClass="btn btn-primary" value="Logar" action="#{empregadoMB.Logar}"/>
+				<h:commandLink styleClass="btn btn-default" value="Cancel" action="index?faces-redirect=true"/>
+			</div>
+			
+		</h:form>
+	</f:view> 
+</main>
+	<ui:include src="inc/footer.xhtml" />
+</h:body>
+</html>
