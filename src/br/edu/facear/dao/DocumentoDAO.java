@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.facear.model.DocumentoEmpregado;
+import br.edu.facear.model.Documento;
 import br.edu.facear.model.TipoDocumento;
 
-public class DocumentoEmpregadoDAO extends GenericDAO implements CrudeDAO<DocumentoEmpregado> {
+public class DocumentoDAO extends GenericDAO implements CrudeDAO<Documento> {
 
 	private String SQL_INSERT = "insert into empregadodocumento (iddocumento,idusuario,idtipo,dretorio) values (?,?,?,?);";
 	private PreparedStatement ps = null;
@@ -19,7 +19,7 @@ public class DocumentoEmpregadoDAO extends GenericDAO implements CrudeDAO<Docume
 	private TipoDocumentoDAO tipodao;
 
 	@Override
-	public void Inserir(DocumentoEmpregado documento) {
+	public void Inserir(Documento documento) {
 		// TODO Auto-generated method stub
 		try {
 			openConnection();
@@ -49,21 +49,21 @@ public class DocumentoEmpregadoDAO extends GenericDAO implements CrudeDAO<Docume
 	}
 
 	@Override
-	public void Excluir(DocumentoEmpregado t) {
+	public void Excluir(Documento t) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void Alterar(DocumentoEmpregado t) {
+	public void Alterar(Documento t) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public List<?> PesquisarALL() {
-		DocumentoEmpregado tipo = null;
-		List<DocumentoEmpregado> lista = new ArrayList<>();
+		Documento tipo = null;
+		List<Documento> lista = new ArrayList<>();
 		try {
 			openConnection();
 
@@ -86,12 +86,12 @@ public class DocumentoEmpregadoDAO extends GenericDAO implements CrudeDAO<Docume
 		return lista;
 	}
 
-	public List<DocumentoEmpregado> Pesquisarfoto(int id) {
+	public List<Documento> Pesquisarfoto(int id) {
 		// TODO Auto-generated method stub
-		DocumentoEmpregado c = null;
+		Documento c = null;
 		TipoDocumento t = null;
 		
-		List<DocumentoEmpregado> documento = new ArrayList<>();
+		List<Documento> documento = new ArrayList<>();
 		
 		try {
 			openConnection();
@@ -106,7 +106,7 @@ public class DocumentoEmpregadoDAO extends GenericDAO implements CrudeDAO<Docume
 
 			while (rs.next()) {
 				t = new TipoDocumento(rs.getInt("idtipodocumento"),  rs.getString("descricao"));
-				c = new DocumentoEmpregado(rs.getInt("iddocumento"), rs.getInt("idusuario"), t, rs.getString("dretorio"));
+				c = new Documento(rs.getInt("iddocumento"), rs.getInt("idusuario"), t, rs.getString("dretorio"));
 
 				documento.add(c);
 			}

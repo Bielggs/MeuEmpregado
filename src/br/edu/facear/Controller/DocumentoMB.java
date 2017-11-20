@@ -20,21 +20,21 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.io.IOUtils;
 
-import br.edu.facear.model.DocumentoEmpregado;
+import br.edu.facear.model.Documento;
 import br.edu.facear.model.Empregado;
 import br.edu.facear.model.TipoDocumento;
-import br.edu.facear.service.DocumentoEmpregadoService;
+import br.edu.facear.service.DocumentoService;
 
 @ManagedBean(name = "documentoEmpregadoMB")
 @SessionScoped
-public class DocumentoEmpregadoMB implements Serializable {
+public class DocumentoMB implements Serializable {
 
 	private static final long serialVersionUID = -8542009263329649810L;
 
-	private DocumentoEmpregado documento;
-	private DocumentoEmpregadoService service;
+	private Documento documento;
+	private DocumentoService service;
 	private TipoDocumento tipodoc;
-	private List<DocumentoEmpregado> listadocuemto;
+	private List<Documento> listadocuemto;
 	private List<TipoDocumento> listTipodoc;
 	private Empregado ep;
 
@@ -44,15 +44,15 @@ public class DocumentoEmpregadoMB implements Serializable {
 	private InputStream in;
 	private int idtipo;
 
-	public DocumentoEmpregadoMB() {
+	public DocumentoMB() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
 				.getRequest();
 		HttpSession session = (HttpSession) request.getSession();
 		ep = (Empregado) session.getAttribute("usuario");
 
-		service = new DocumentoEmpregadoService();
+		service = new DocumentoService();
 		tipodoc = new TipoDocumento(0, "");
-		documento = new DocumentoEmpregado(0, ep.getId(), tipodoc, caminho);
+		documento = new Documento(0, ep.getId(), tipodoc, caminho);
 
 		this.listTipodoc = service.SearchTipodocumento();
 		this.listadocuemto = service.Pesquisar(ep.getId());
@@ -110,7 +110,7 @@ public class DocumentoEmpregadoMB implements Serializable {
 
 	public String SalvarAction() throws IOException {
 		documento.setDiretorio(caminho);
-		service.Salvar(documento);
+		service.Inserir(documento);
 		image.delete();
 		caminho = "";
 		arraybytes64 = "Image/sem-imagem.jpg";
@@ -137,19 +137,19 @@ public class DocumentoEmpregadoMB implements Serializable {
 		this.arraybytes64 = arraybytes64;
 	}
 
-	public DocumentoEmpregado getDocumento() {
+	public Documento getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(DocumentoEmpregado documento) {
+	public void setDocumento(Documento documento) {
 		this.documento = documento;
 	}
 
-	public DocumentoEmpregadoService getService() {
+	public DocumentoService getService() {
 		return service;
 	}
 
-	public void setService(DocumentoEmpregadoService service) {
+	public void setService(DocumentoService service) {
 		this.service = service;
 	}
 
@@ -185,11 +185,11 @@ public class DocumentoEmpregadoMB implements Serializable {
 		this.listTipodoc = listTipodoc;
 	}
 
-	public List<DocumentoEmpregado> getListadocuemto() {
+	public List<Documento> getListadocuemto() {
 		return listadocuemto;
 	}
 
-	public void setListadocuemto(List<DocumentoEmpregado> listadocuemto) {
+	public void setListadocuemto(List<Documento> listadocuemto) {
 		this.listadocuemto = listadocuemto;
 	}
 

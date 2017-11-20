@@ -1,17 +1,17 @@
 package br.edu.facear.model;
 
-public class DocumentoEmpregado {
+public class Documento {
 	
 	private int iddocumento;
 	private int idcliente;
 	private TipoDocumento tipodoc;
 	private String diretorio;
 
-	public DocumentoEmpregado() {
+	public Documento() {
 		
 	}
 	
-	public DocumentoEmpregado(int iddocumento, int idcliente, TipoDocumento tipodoc, String diretorio) {
+	public Documento(int iddocumento, int idcliente, TipoDocumento tipodoc, String diretorio) {
 		this.iddocumento = iddocumento;
 		this.idcliente = idcliente;
 		this.tipodoc = tipodoc;
